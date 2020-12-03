@@ -1,4 +1,4 @@
-FROM node:14-buster-slim  as Build
+FROM node:alpine as build
 
 # Create /app
 RUN mkdir /app
@@ -17,6 +17,6 @@ RUN npm run build
 
 RUN ls -al /app/dist
 
-FROM nginx:alpine
+FROM nginx:alpine as production
 
-COPY --from=Build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html

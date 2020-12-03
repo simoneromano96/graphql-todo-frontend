@@ -1,0 +1,9 @@
+version: "3.6"
+
+services: 
+  app:
+    build: 
+      context: .
+      dockerfile: ./.docker/app.dockerfile
+    ports: 
+      - 8000:80

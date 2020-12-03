@@ -1,0 +1,42 @@
+{
+  "name": "graphql-todo-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --config vite.config.ts --port 3001",
+    "build": "vite --config vite.config.ts build",
+    "lint": "eslint \"src/**/*.{js,ts,vue}\"",
+    "lint-fix": "eslint --fix \"src/**/*.{js,ts,vue}\"",
+    "ts-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.0",
+    "@mdi/js": "^5.8.55",
+    "@urql/exchange-graphcache": "^3.2.0",
+    "@urql/vue": "^0.2.0",
+    "graphql": "^15.4.0",
+    "lottie-web": "^5.7.4",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
+    "vue": "^3.0.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "@vue/compiler-sfc": "^3.0.3",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.1.0",
+    "prettier": "^2.2.0",
+    "sass": "^1.29.0",
+    "vite": "^1.0.0-rc.13",
+    "vite-plugin-pwa": "^0.1.5"
+  },
+  "author": "Simone Romano",
+  "license": "GPLV3",
+  "bugs": {
+    "url": "https://github.com/simoneromano96/graphql-todo-frontend/issues"
+  },
+  "homepage": "https://github.com/simoneromano96/graphql-todo-frontend#readme"
+}

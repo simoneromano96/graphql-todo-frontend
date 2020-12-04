@@ -5,7 +5,7 @@
       {{ todo.description }}
     </div>
     <div class="delete-icon" @click="onDelete">
-      <img src="/src/assets/delete.svg" alt="Delete" srcset="" />
+      <img src="/src/assets/delete.svg" alt="Delete" />
     </div>
     <!--
     <input id="todo" type="checkbox" name="todo" value="todo" :checked="todo.completed" @change="onComplete" />

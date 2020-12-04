@@ -35,7 +35,10 @@ const config: UserConfig = {
             "type": "image/png"
           }
         ]
-      }
+      },
+      workbox: {
+        cleanupOutdatedCaches: true,
+      },
     }),
   ],
 }

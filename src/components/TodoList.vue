@@ -8,14 +8,14 @@
         name="add-todo"
       />
       <button
-        class="transition-all p-1 rounded-md bg-green-400 focus:ring-4 focus:ring-green-600 focus:ring-opacity-50"
+        class="transition-all p-1 rounded-md bg-green-200 text-green-800 focus:ring-4 focus:ring-green-100 focus:ring-opacity-50"
         type="submit"
       >
         <svg-icon type="mdi" :path="plusIcon" />
       </button>
     </form>
     <div class="text-center space-y-4">
-      <todo-item v-for="todo in queryResult.allTodos" :key="todo.id" :todo="todo" @edit-todo="onEditTodo" />
+      <todo-item v-for="todo in queryResult.allTodos" :key="todo.id" :todo="todo" @edit-todo="onEditTodo" @delete-todo="onDeleteTodo" />
     </div>
   </div>
 </template>
@@ -60,6 +60,12 @@ const TodoList = defineComponent({
       }
     `)
 
+    const { executeMutation: deleteTodo } = useMutation(`
+      mutation ($id: String!) {
+        deleteTodo (id: $id)
+      }
+    `)
+
     const query = await useQuery({
       query: `
         {
@@ -86,6 +92,7 @@ const TodoList = defineComponent({
       newTodo,
       refetchTodos,
       editTodo,
+      deleteTodo,
     }
   },
   data: () => ({
@@ -100,10 +107,14 @@ const TodoList = defineComponent({
       await this.newTodo({ description })
       await this.refetchTodos()
     },
-    async onEditTodo(id, checked) {
+    async onEditTodo(id: string, checked: boolean) {
       await this.editTodo({ id, completed: checked })
       await this.refetchTodos()
     },
+    async onDeleteTodo(id: string) {
+      await this.deleteTodo({ id })
+      await this.refetchTodos()
+    }
   },
 })
 

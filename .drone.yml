@@ -17,3 +17,30 @@ steps:
       target: production
       config:
         from_secret: docker_auth_config
+
+---
+kind: pipeline
+type: ssh
+name: deploy
+
+server:
+  host:
+    from_secret: host
+  user:
+    from_secret: user
+  ssh_key:
+    from_secret: ssh_key
+
+steps:
+  - name: deploy-docker-app
+    commands:
+      - cd ~/docker/streams/graphql-todo
+      - docker-compose pull app && docker-compose stop app && docker-compose rm -f app && docker-compose up app
+
+depends_on:
+  - app
+
+trigger:
+  event:
+    - promote
+    - rollback

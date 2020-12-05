@@ -1,12 +1,25 @@
 <template>
   <div class="app dark flex flex-col bg-gradient-to-br from-blue-300 to-indigo-600">
+    <Suspense>
+      <template #default>
+        <todo-list />
+      </template>
+      <template #fallback>
+        <span>Loading...</span>
+      </template>
+    </Suspense>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onErrorCaptured, onMounted, ref } from "vue"
+import { defineComponent } from "vue"
+import TodoList from "./components/TodoList.vue"
 
-const App = defineComponent({})
+const App = defineComponent({
+  components: {
+    TodoList,
+  },
+})
 
 export default App
 </script>

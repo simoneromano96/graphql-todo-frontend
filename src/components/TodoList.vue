@@ -20,7 +20,7 @@
 import { defineComponent, ref } from "vue"
 import { useMutation, useQuery } from "@urql/vue"
 
-import TodoItem from "./TodoItem.vue"
+import TodoItem from "./TodoItem/TodoItem.vue"
 import { CompletitionStatus } from "../models/todo"
 
 const TodoList = defineComponent({
@@ -73,6 +73,7 @@ const TodoList = defineComponent({
       newTodoDescription.value = value
     }
 
+    // Called when we add a todo
     const onAddNewTodo = async (e: Event) => {
       e.preventDefault()
       const { value: description } = newTodoDescription

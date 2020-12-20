@@ -28,6 +28,7 @@ const TodoList = defineComponent({
     TodoItem
   },
   async setup(props, context) {
+    // Reactive property newTodoDescription
     const newTodoDescription = ref()
 
     const { executeMutation: editTodo } = useMutation(`
@@ -68,8 +69,11 @@ const TodoList = defineComponent({
       `,
     })
 
+    // When description input changes
     const onDescriptionInput = (e: Event) => {
+      // Get the value
       const { value } = e.target
+      // Save the value into newTodoDescription
       newTodoDescription.value = value
     }
 
@@ -77,14 +81,16 @@ const TodoList = defineComponent({
     const onAddNewTodo = async (e: Event) => {
       e.preventDefault()
       const { value: description } = newTodoDescription
-
+      // Call the newTodo mutation with description as param
       const r = await newTodo({ description })
+            // Network only skips the cache
       await allTodosQuery.executeQuery({ requestPolicy: 'network-only' })
     }
 
     // This is called when we complete a todo
     const onTodoChanged = async ({ id, completitionStatus }) => {
       const r = await editTodo({ id, completitionStatus })
+      // Network only skips the cache
       await allTodosQuery.executeQuery({ requestPolicy: 'network-only' })
     }
 

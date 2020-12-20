@@ -30,6 +30,8 @@ server:
     from_secret: user
   ssh_key:
     from_secret: ssh_key
+  port:
+    from_secret: port
 
 steps:
   - name: deploy-docker-app

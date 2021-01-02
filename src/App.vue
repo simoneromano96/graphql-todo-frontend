@@ -1,36 +1,23 @@
 <template>
   <div class="app dark flex flex-col bg-gradient-to-br from-blue-300 to-indigo-600">
-    <h1 class="text-center m-4 text-xl font-bold">Todos</h1>
-    <div v-if="error">{{ error.message }}</div>
-    <Suspense v-else>
+    <Suspense>
       <template #default>
         <todo-list />
       </template>
       <template #fallback>
-        <div>Loading...</div>
+        <span>Loading...</span>
       </template>
     </Suspense>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onErrorCaptured, onMounted, ref } from "vue"
-
+import { defineComponent } from "vue"
 import TodoList from "./components/TodoList.vue"
 
 const App = defineComponent({
   components: {
     TodoList,
-  },
-  setup(props, context) {
-    const error = ref(null)
-
-    onErrorCaptured((caughtError) => {
-      error.value = caughtError
-      return true
-    })
-
-    return { error }
   },
 })
 

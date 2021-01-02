@@ -13,6 +13,10 @@ const app = createApp(App)
 app.use(urql, {
   url: config.graphqlUrl,
   exchanges: [dedupExchange, cacheExchange({}), fetchExchange],
+  // Fixes cookies
+  fetchOptions: {
+    credentials: 'include',
+  }
 })
 
 app.mount("#app")

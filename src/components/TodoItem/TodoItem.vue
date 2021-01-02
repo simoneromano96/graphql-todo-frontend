@@ -33,7 +33,7 @@ import { CompletitionStatus, Todo } from "../../models/todo"
 const TodoItem = defineComponent({
   props: {
     todo: {
-      type: Todo,
+      type: Object,
       required: true,
     },
   },

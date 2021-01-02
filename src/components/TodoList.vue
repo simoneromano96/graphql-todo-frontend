@@ -31,6 +31,7 @@ const TodoList = defineComponent({
     // Reactive property newTodoDescription
     const newTodoDescription = ref()
 
+    // Create editTodo mutation
     const { executeMutation: editTodo } = useMutation(`
       mutation ($id: String!, $description: String, $completitionStatus: CompletitionStatus) {
         editTodo(id: $id, description: $description, completitionStatus: $completitionStatus) {
@@ -43,6 +44,7 @@ const TodoList = defineComponent({
       }
     `)
 
+    // Create newTodo mutation
     const { executeMutation: newTodo } = useMutation(`
       mutation ($description: String!) {
         newTodo(description: $description) {
@@ -55,6 +57,7 @@ const TodoList = defineComponent({
       }
     `)
 
+    // Create allTodos query
     const allTodosQuery = useQuery({
       query: `
         {
@@ -70,7 +73,7 @@ const TodoList = defineComponent({
     })
 
     // When description input changes
-    const onDescriptionInput = (e: Event) => {
+    const onDescriptionInput = (e: InputEvent) => {
       // Get the value
       const { value } = e.target
       // Save the value into newTodoDescription
@@ -78,22 +81,26 @@ const TodoList = defineComponent({
     }
 
     // Called when we add a todo
-    const onAddNewTodo = async (e: Event) => {
+    const onAddNewTodo = async (e: InputEvent) => {
+      // Prevents default action of the form
       e.preventDefault()
+      // Get value from newTodoDescription aliasing it to "description"
       const { value: description } = newTodoDescription
       // Call the newTodo mutation with description as param
-      const r = await newTodo({ description })
-            // Network only skips the cache
+      await newTodo({ description })
+      // Network only skips the cache
       await allTodosQuery.executeQuery({ requestPolicy: 'network-only' })
     }
 
     // This is called when we complete a todo
     const onTodoChanged = async ({ id, completitionStatus }) => {
-      const r = await editTodo({ id, completitionStatus })
+      // Call the editTodo mutation with id and completitionStatus as params
+      await editTodo({ id, completitionStatus })
       // Network only skips the cache
       await allTodosQuery.executeQuery({ requestPolicy: 'network-only' })
     }
 
+    // Call allTodos query
     const { data: queryResult, error } = await allTodosQuery.executeQuery()
 
     return {

@@ -26,13 +26,14 @@
 import { defineComponent, computed, toRefs } from "vue"
 
 import { getSliderValue } from "./getSliderValue";
+import { getCompletitionStatus } from "./getCompletitionStatus";
+
 import { CompletitionStatus, Todo } from "../../models/todo"
 
 const TodoItem = defineComponent({
   props: {
     todo: {
-      // TODO: Fix this type
-      type: Object,
+      type: Todo,
       required: true,
     },
   },
@@ -45,23 +46,8 @@ const TodoItem = defineComponent({
 
     const derivedRangeValue = computed(() => getSliderValue(todo.value.completitionStatus))
 
-    const onCompletitionStatusChange = (e: Event) => {
-      const status = e?.target?.value
-      let completitionStatus: CompletitionStatus
-
-      switch (status) {
-        case "0":
-          completitionStatus = CompletitionStatus.NotCompleted
-          break
-        case "1":
-          completitionStatus = CompletitionStatus.InProgress
-          break
-        case "2":
-          completitionStatus = CompletitionStatus.Completed
-          break
-        default:
-          break
-      }
+    const onCompletitionStatusChange = (e: InputEvent) => {
+      const completitionStatus = getCompletitionStatus(e?.target?.value)
 
       // Variadic arguments
       emit("todo-changed", { id: todo.value.id, completitionStatus })

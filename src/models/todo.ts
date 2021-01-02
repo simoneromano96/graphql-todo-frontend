@@ -5,7 +5,8 @@ enum CompletitionStatus {
   Completed = "COMPLETED",
 }
 
-interface Todo {
+interface ITodo {
+  id: string
   description: string
   completed: boolean
   createdAt: Date
@@ -13,6 +14,15 @@ interface Todo {
   completitionStatus: CompletitionStatus
 }
 
-export { CompletitionStatus };
+class Todo implements ITodo {
+  id!: string;
+  description!: string;
+  completed!: boolean;
+  createdAt!: Date;
+  updatedAt!: Date;
+  completitionStatus!: CompletitionStatus;
+}
 
-export type { Todo };
+export { CompletitionStatus, Todo };
+
+export type { ITodo };

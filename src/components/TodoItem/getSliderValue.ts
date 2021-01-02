@@ -1,6 +1,6 @@
 import { CompletitionStatus } from "../../models/todo";
 
-export const getSliderValue = (completitionStatus: CompletitionStatus) : number => {
+export const getSliderValue = (completitionStatus: CompletitionStatus) => {
   let result;
   switch (completitionStatus) { 
     case CompletitionStatus.NotCompleted:
